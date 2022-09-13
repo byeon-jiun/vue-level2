@@ -4,28 +4,45 @@
     <span class="addContainer" v-on:click="addTodo">
       <i class="fas fa-plus addBtn"></i>
     </span>
+
+    <SlotModalLayout v-if="showModal" @close="showModal = false">
+      <template v-slot:header>
+        <h3>알림
+          <i class="fas fa-times closeModalBtn" v-on:click="close"></i>
+        </h3>
+      </template>
+      <template v-slot:main>
+        <h5>값을 입력해주세요.</h5>
+      </template>
+    </SlotModalLayout>
   </div>
 </template>
 
 <script>
+import SlotModalLayout from './common/SlotModalLayout.vue'
 export default {
   name: "TodoInput",
   data: function () {
     return {
-      newTodoItem: ''
+      newTodoItem: '',
+      showModal: false
     }
   },
   methods: {
     addTodo: function () {
       if (this.newTodoItem !== '') {
-        let obj = {completed: false, item: this.newTodoItem};
-        localStorage.setItem(this.newTodoItem, JSON.stringify(obj));
+        this.$emit('addTodoItem', this.newTodoItem)
         this.clearInput();
+      } else {
+        this.showModal = !this.showModal
       }
     },
     clearInput: function () {
       this.newTodoItem = '';
     }
+  },
+  components: {
+    SlotModalLayout
   }
 }
 </script>
@@ -54,5 +71,8 @@ export default {
   .addBtn {
     color: white;
     vertical-align: middle;
+  }
+  .closeModalBtn {
+    color: black;
   }
 </style>
