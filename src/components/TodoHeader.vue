@@ -1,6 +1,6 @@
 <template>
   <header>
-    <h1>지운이 TodoList</h1>
+    <h1>지운 데스노트</h1>
   </header>
 </template>
 

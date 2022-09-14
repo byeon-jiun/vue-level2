@@ -5,10 +5,10 @@
       <i class="fas fa-plus addBtn"></i>
     </span>
 
-    <SlotModalLayout v-if="showModal" @close="showModal = false">
+    <SlotModalLayout v-if="showModal">
       <template v-slot:header>
         <h3>알림
-          <i class="fas fa-times closeModalBtn" v-on:click="close"></i>
+          <i class="fas fa-times closeModalBtn" v-on:click="showModal = false"></i>
         </h3>
       </template>
       <template v-slot:main>
@@ -22,7 +22,7 @@
 import SlotModalLayout from './common/SlotModalLayout.vue'
 export default {
   name: "TodoInput",
-  data: function () {
+  data () {
     return {
       newTodoItem: '',
       showModal: false
@@ -31,7 +31,7 @@ export default {
   methods: {
     addTodo: function () {
       if (this.newTodoItem !== '') {
-        this.$emit('addTodoItem', this.newTodoItem)
+        this.$store.commit('addOneItem', this.newTodoItem)
         this.clearInput();
       } else {
         this.showModal = !this.showModal
