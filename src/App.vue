@@ -14,11 +14,6 @@ import TodoList from './components/TodoList.vue'
 import TodoFooter from './components/TodoFooter.vue'
 export default {
   name: 'App',
-  data () {
-    return {
-      todoItems: [],
-    }
-  },
   methods: {
   },
   components: {
